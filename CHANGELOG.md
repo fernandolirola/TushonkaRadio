@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.16
+
+- Music continues at the same position when switching between the main menu and hideout.
+
 ## 1.0.15
 
 - YouTube audio cache defaults to 100 MB, including preloaded tracks. Adjust the limit and see usage in F12.
@@ -74,6 +78,7 @@
 - Added automatic raid pausing and optional resume afterward.
 - Added stock menu music muting while the radio plays.
 - Added an F9 shortcut, Radio button, and English/Portuguese interface.
+
 
 
 

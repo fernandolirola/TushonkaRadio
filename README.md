@@ -20,7 +20,7 @@ The compact view shows cover art, song title, artist, previous/play/next, shuffl
 Requires SPT 4.1.6, BepInEx 5, Windows with WebView2, and windowed or borderless mode.
 
 1. Install [Anvil WebOverlay 1.11.0 or newer](https://github.com/maschine34675/WebOverlay/releases) if it is not already installed.
-2. Close the game and extract `TushonkaRadio-1.0.15.zip` into its folder.
+2. Close the game and extract `TushonkaRadio-1.0.16.zip` into its folder.
 3. Open RADIO or press F8, expand the library and choose a playlist or local song.
 
 The supplied YouTube playlist is included as a preset. Up to 500 entries are imported. Cached audio is limited to 150 MB per track. To reclaim disk space, open F12, find Tushonka Radio, and click Clear YouTube cache under YouTube. 
@@ -53,6 +53,7 @@ References default to `C:\SPT`; override the client build with `-p:SPTPath=...`.
 Abra RÁDIO na barra inferior, ao lado de HIDEOUT/CraftQueue, ou aperte F8. O player compacto mostra capa, nome da faixa, artista e controles. Clique na capa, no título ou na seta para abrir a biblioteca.
 
 YouTube e arquivos locais continuam tocando com o player fechado ou minimizado. A música pausa nas raids e pode continuar ao voltar. O suporte ao YouTube já vem incluído no mod.
+
 
 
 

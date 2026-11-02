@@ -4,10 +4,11 @@ let settings;try{settings=C.restore(localStorage.getItem('zezinho.hideoutradio.v
 let lang=settings.language,mode='menu',epoch=0,visible=true,resume=true,source='youtube',localTracks=[],onlineTracks=[],index=-1,expanded=false,playing=false,serial=0,listRequest='',audioRequest='',selectedPreset='',failure='',history=[];
 const intent=new C.Intent(),audio=$('audio'),lists=new Map();
 const words={en:{local:'Local music',playlists:'Playlists',tracks:'Tracks',add:'Add playlist or video',name:'Custom Name (optional)',link:'Link',save:'Save',refresh:'Refresh',path:'Add files to HideoutRadio/Player/Music.',shuffle:'Shuffle',repeat:'Repeat',volume:'Volume',choose:'Choose a playlist',play:'Play',pause:'Pause',previous:'Previous track',next:'Next track',open:'Open library',show:'Show library',collapse:'Collapse library',close:'Close player',empty:'No tracks yet.',invalidLink:'Use an HTTPS YouTube video or playlist link.',loadingList:'Loading playlist...',loadingAudio:'Preparing audio...',ready:'Ready.',paused:'Paused',raid:'Paused for raid. Your place is saved.',error:'Could not play this track. Try another one.',limit:'You can save up to 50 playlists.',remove:'Remove playlist',end:'End of playlist',menu:'MENU',hideout:'HIDEOUT',blocked:'PAUSED'},pt:{local:'M\u00fasicas locais',playlists:'Playlists',tracks:'Faixas',add:'Adicionar playlist ou v\u00eddeo',name:'Nome personalizado (opcional)',link:'Link',save:'Salvar',refresh:'Atualizar',path:'Adicione arquivos em HideoutRadio/Player/Music.',shuffle:'Aleat\u00f3rio',repeat:'Repetir',volume:'Volume',choose:'Escolha uma playlist',play:'Reproduzir',pause:'Pausar',previous:'Faixa anterior',next:'Pr\u00f3xima faixa',open:'Abrir biblioteca',show:'Mostrar biblioteca',collapse:'Recolher biblioteca',close:'Fechar player',empty:'Nenhuma faixa ainda.',invalidLink:'Use um link HTTPS de v\u00eddeo ou playlist do YouTube.',loadingList:'Carregando playlist...',loadingAudio:'Preparando \u00e1udio...',ready:'Pronto.',paused:'Pausado',raid:'Pausado para raid. Sua posi\u00e7\u00e3o foi salva.',error:'N\u00e3o foi poss\u00edvel tocar esta faixa. Tente outra.',limit:'Voc\u00ea pode salvar at\u00e9 50 playlists.',remove:'Remover playlist',end:'Fim da playlist',menu:'MENU',hideout:'ESCONDERIJO',blocked:'PAUSADO'}};
-const t=k=>words[lang][k]||k,prefs=()=>settings.contexts[mode==='hideout'?'hideout':'menu'],queue=()=>source==='local'?localTracks:onlineTracks,current=()=>queue()[index];
+const t=k=>words[lang][k]||k,prefs=()=>settings.contexts[sessionContext],queue=()=>source==='local'?localTracks:onlineTracks,current=()=>queue()[index];
 function save(){try{localStorage.setItem('zezinho.hideoutradio.v1',JSON.stringify(settings));}catch{}}
 function send(message){if(bridge)bridge.postMessage(JSON.stringify(message));else fetch('/api/command',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(message)}).then(r=>r.json()).then(receive).catch(()=>{if(message.type.startsWith('youtube')){failure=t('error');status(failure,true);intent.userPause();renderPlay();}});}
 let heartbeat, initialContext = true;
+let sessionContext = 'menu';
 let preloadEnabled = false, upcoming = null;
 
 function clearUpcoming(){
@@ -65,9 +66,10 @@ function loadList(preset,autoplay=false){try{C.parseYouTube(preset.url);}catch{s
 function renderLists(){const presets=$('playlists');presets.replaceChildren();for(const preset of settings.playlists){const row=document.createElement('div');row.className='row'+(preset.id===prefs().playlist?' active':'');const button=document.createElement('button');button.className='choose';const text=document.createElement('span');text.className='title';text.textContent=preset.name;button.append(text);button.onclick=()=>loadList(preset,false);const remove=document.createElement('button');remove.className='remove';remove.textContent='\u00d7';remove.setAttribute('aria-label',t('remove')+': '+preset.name);remove.onclick=()=>{if(selectedPreset===preset.id){clearUpcoming();pause();onlineTracks=[];index=-1;listRequest='';audioRequest='';}settings.playlists=settings.playlists.filter(p=>p.id!==preset.id);if(settings.lastPlayedPlaylist===preset.id)settings.lastPlayedPlaylist='';for(const c of Object.values(settings.contexts))if(c.playlist===preset.id)c.playlist=settings.playlists[0]?.id||'';save();renderLists();info();};row.append(button,remove);presets.append(row);}
  const tracks=$('tracks');tracks.replaceChildren();queue().forEach((track,i)=>{const row=document.createElement('div');row.className='row'+(i===index?' active':'');const button=document.createElement('button');button.className='choose';const image=coverUrl(track.cover);if(image){const img=document.createElement('img');img.className='thumb';img.loading='lazy';img.decoding='async';img.src=image;img.alt='';img.onerror=()=>img.hidden=true;button.append(img);}const labels=document.createElement('span');labels.className='labels';const name=document.createElement('span');name.className='title';name.textContent=track.name;const artist=document.createElement('span');artist.className='subtitle';artist.textContent=track.artist||track.album||'';labels.append(name,artist);button.append(labels);button.onclick=()=>select(i,true);row.append(button);tracks.append(row);});if(!queue().length){const empty=document.createElement('p');empty.className='empty';empty.textContent=t('empty');tracks.append(empty);}requestAnimationFrame(shape);}
 function receive(value){let msg;try{msg=typeof value==='string'?JSON.parse(value):value;}catch{return;}if(!msg||typeof msg!=='object')return;
- if(msg.type==='runtime'){const oldMode=mode,wasVisible=visible,wanted=intent.desired;mode=['menu','hideout'].includes(msg.mode)?msg.mode:'blocked';epoch=Number(msg.epoch)||0;visible=msg.visible===true;if(visible&&!wasVisible)updateSeek();resume=msg.resume!==false;lang=msg.language==='pt'?'pt':'en';
-  if (mode !== 'blocked' && (initialContext || mode !== oldMode)) {
-    const startupPlaylist = initialContext && settings.lastPlayedPlaylist;
+ if(msg.type==='runtime'){const wasVisible=visible,wanted=intent.desired;mode=['menu','hideout'].includes(msg.mode)?msg.mode:'blocked';epoch=Number(msg.epoch)||0;visible=msg.visible===true;if(visible&&!wasVisible)updateSeek();resume=msg.resume!==false;lang=msg.language==='pt'?'pt':'en';
+  if (mode !== 'blocked' && initialContext) {
+    sessionContext = mode;
+    const startupPlaylist = settings.lastPlayedPlaylist;
     initialContext = false;
     sourceTo(prefs().source, false);
     if (source === 'youtube') {
@@ -131,6 +133,7 @@ if (bridge) {
   document.getElementById('resizeGrip').hidden = true;
 }
 })();
+
 
 
 

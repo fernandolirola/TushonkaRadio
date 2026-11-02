@@ -19,7 +19,7 @@ using WebOverlay;
 
 namespace HideoutRadio;
 
-[BepInPlugin(Id, "Tushonka Radio", "1.0.15")]
+[BepInPlugin(Id, "Tushonka Radio", "1.0.16")]
 [BepInDependency("com.anvil.weboverlay", "1.11.0")]
 public sealed class Plugin : BaseUnityPlugin
 {
@@ -76,7 +76,7 @@ public sealed class Plugin : BaseUnityPlugin
         Config.SettingChanged += SettingsChanged;
         _harmony = new Harmony(Id);
         _harmony.PatchAll(typeof(Plugin).Assembly);
-        Logger.LogInfo("Tushonka Radio 1.0.15 ready. Open with F8 or the native RADIO menu button.");
+        Logger.LogInfo("Tushonka Radio 1.0.16 ready. Open with F8 or the native RADIO menu button.");
     }
 
     private void SettingsChanged(object sender, SettingChangedEventArgs args) { _nextState = 0; Push(); }
@@ -362,6 +362,7 @@ internal sealed class ConfigurationManagerAttributes
 {
     public Action<ConfigEntryBase>? CustomDrawer;
 }
+
 
 
 
