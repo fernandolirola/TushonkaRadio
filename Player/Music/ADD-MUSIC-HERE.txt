@@ -1,0 +1,4 @@
+Put your own MP3, OGG, WAV, M4A, AAC, FLAC, OPUS or WEBM files in this folder.
+Open Tushonka Radio and click Refresh under Local music.
+Files are read locally. Codec support depends on the Windows WebView2 runtime.
+

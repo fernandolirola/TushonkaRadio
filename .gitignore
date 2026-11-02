@@ -1,0 +1,10 @@
+bin/
+obj/
+release/
+*.cfg
+Player/Music/*
+!Player/Music/ADD-MUSIC-HERE.txt
+Player/Artwork/
+Player/YouTubeCache/
+Tools/*.exe
+Tools/*.download

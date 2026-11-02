@@ -1,0 +1,38 @@
+<Project Sdk="Microsoft.NET.Sdk">
+<PropertyGroup><TargetFramework>net472</TargetFramework><LangVersion>latest</LangVersion><Nullable>enable</Nullable><AssemblyName>zezinho.HideoutRadio</AssemblyName><RootNamespace>HideoutRadio</RootNamespace><Version>1.0.15</Version><DebugType>none</DebugType><SPTPath Condition="'$(SPTPath)' == ''">C:\SPT</SPTPath></PropertyGroup>
+<ItemGroup>
+<PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.3" PrivateAssets="all" />
+<PackageReference Include="TagLibSharp" Version="2.3.0" />
+<PackageReference Include="YoutubeExplode" Version="6.6.3" />
+<Reference Include="BepInEx" HintPath="$(SPTPath)\BepInEx\core\BepInEx.dll" Private="false" />
+<Reference Include="0Harmony" HintPath="$(SPTPath)\BepInEx\core\0Harmony.dll" Private="false" />
+<Reference Include="Assembly-CSharp" HintPath="$(SPTPath)\EscapeFromTarkov_Data\Managed\Assembly-CSharp.dll" Private="false" />
+<Reference Include="Comfort" HintPath="$(SPTPath)\EscapeFromTarkov_Data\Managed\Comfort.dll" Private="false" />
+<Reference Include="UnityEngine" HintPath="$(SPTPath)\EscapeFromTarkov_Data\Managed\UnityEngine.dll" Private="false" />
+<Reference Include="UnityEngine.CoreModule" HintPath="$(SPTPath)\EscapeFromTarkov_Data\Managed\UnityEngine.CoreModule.dll" Private="false" />
+<Reference Include="UnityEngine.IMGUIModule" HintPath="$(SPTPath)\EscapeFromTarkov_Data\Managed\UnityEngine.IMGUIModule.dll" Private="false" />
+<Reference Include="UnityEngine.InputLegacyModule" HintPath="$(SPTPath)\EscapeFromTarkov_Data\Managed\UnityEngine.InputLegacyModule.dll" Private="false" />
+<Reference Include="UnityEngine.AudioModule" HintPath="$(SPTPath)\EscapeFromTarkov_Data\Managed\UnityEngine.AudioModule.dll" Private="false" />
+<Reference Include="Newtonsoft.Json" HintPath="$(SPTPath)\EscapeFromTarkov_Data\Managed\Newtonsoft.Json.dll" Private="false" />
+<Reference Include="Anvil-WebOverlay" HintPath="$(SPTPath)\BepInEx\plugins\Anvil-WebOverlay\Anvil-WebOverlay.dll" Private="false" />
+<Reference Include="UnityEngine.UI" HintPath="$(SPTPath)\EscapeFromTarkov_Data\Managed\UnityEngine.UI.dll" Private="false" />
+<Reference Include="UnityEngine.UIModule" HintPath="$(SPTPath)\EscapeFromTarkov_Data\Managed\UnityEngine.UIModule.dll" Private="false" />
+<Reference Include="UnityEngine.AnimationModule" HintPath="$(SPTPath)\EscapeFromTarkov_Data\Managed\UnityEngine.AnimationModule.dll" Private="false" />
+<Reference Include="Unity.TextMeshPro" HintPath="$(SPTPath)\EscapeFromTarkov_Data\Managed\Unity.TextMeshPro.dll" Private="false" />
+<Reference Include="Sirenix.Serialization" HintPath="$(SPTPath)\EscapeFromTarkov_Data\Managed\Sirenix.Serialization.dll" Private="false" />
+</ItemGroup></Project>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

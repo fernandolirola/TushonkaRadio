@@ -1,0 +1,14 @@
+TagLibSharp 2.3.0
+Copyright 2006-2007 Brian Nickel; 2009-2020 other contributors.
+License: LGPL-2.1-only. Unmodified dynamic library.
+Project: https://github.com/mono/taglib-sharp
+Corresponding version: TaglibSharp-2.3.0.0
+License: TagLibSharp-LGPL-2.1.txt
+Corresponding library source and build files: TagLibSharp-2.3.0-library-source.zip. Large upstream test/example media is omitted; library source is unchanged. Build src/TaglibSharp/TaglibSharp.csproj.
+You may replace/relink this library with a compatible modified version, and debug such modifications under the LGPL terms.
+
+YoutubeExplode 6.6.3 and Microsoft .NET support libraries
+Licenses: YoutubeExplode-LICENSE.txt, dotnet-LICENSE.txt, dotnet-THIRD-PARTY-NOTICES.txt.
+Source: https://github.com/Tyrrrz/YoutubeExplode/tree/d8b1928bf32802c43532465f4d202d066ce77667
+.NET source: https://github.com/dotnet/runtime
+The release staging script gives these DLLs private assembly names to avoid conflicts with game assemblies.
